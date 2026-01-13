@@ -10,6 +10,8 @@ std::mutex cout_mutex;
 
 // 一个简单的函数，将在新线程中运行
 void thread_function(int id) {
+    std::thread::id current_thread_id = std::this_thread::get_id();
+
     {
         //std::cout在多线程环境下不是线程安全的 使用互斥锁保护输出
         std::lock_guard<std::mutex> lock(cout_mutex);
@@ -18,7 +20,13 @@ void thread_function(int id) {
 
     // 模拟工作
     for (int i = 0; i < 3; i++) {
-        std::cout << "Thread " << id << " working...\n";
+
+        {
+            std::lock_guard<std::mutex> lock(cout_mutex);
+            std::cout << "Thread " << id  << " working..."
+                      << "Current Thread id:" << current_thread_id << "\n";
+        }
+
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 
