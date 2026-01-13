@@ -6,7 +6,23 @@
 #include <chrono>
 #include <mutex>
 
+#ifdef _WIN32
+#include <windows.h>
+#include <process.h>
+#else
+#include <unistd.h>
+#endif
+
 std::mutex cout_mutex;
+
+// 获取进程ID的跨平台函数
+int get_process_id() {
+#ifdef _WIN32
+    return static_cast<int>(GetCurrentProcessId());
+#else
+    return static_cast<int>(getpid());
+#endif
+}
 
 // 一个简单的函数，将在新线程中运行
 void thread_function(int id) {
@@ -34,7 +50,9 @@ void thread_function(int id) {
 }
 
 int main() {
+    int process_id = get_process_id();
     std::cout << "Main thread started\n";
+    std::cout << "Main thread started. Process ID: " << process_id << "\n";
 
     // 创建并启动线程
     std::thread t1(thread_function, 1);
@@ -47,5 +65,6 @@ int main() {
     t2.join();
 
     std::cout << "Main thread finished\n";
+    std::cout << "Main thread finished. Process ID: " << process_id << "\n";
     return 0;
 }
