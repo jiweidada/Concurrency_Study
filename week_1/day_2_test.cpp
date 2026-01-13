@@ -4,10 +4,17 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
+#include <mutex>
+
+std::mutex cout_mutex;
 
 // 一个简单的函数，将在新线程中运行
 void thread_function(int id) {
-    std::cout << "Thread " << id << " started\n";
+    {
+        //std::cout在多线程环境下不是线程安全的 使用互斥锁保护输出
+        std::lock_guard<std::mutex> lock(cout_mutex);
+        std::cout << "Thread " << id << " started\n";
+    }
 
     // 模拟工作
     for (int i = 0; i < 3; i++) {
