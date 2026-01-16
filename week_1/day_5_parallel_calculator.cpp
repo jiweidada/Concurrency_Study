@@ -24,6 +24,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath> // 引入这个头文件以支持 std::pow
+#include <mutex>
 
 // === 模块 A：数据结构 ===
 enum class TaskType {
@@ -70,6 +71,13 @@ void calculate(CalculationTask<int>& calculationTask)
     }
     // 这里的打印其实有竞争风险，但在学习阶段为了看清流程可以保留
     // 生产环境建议加锁 std::lock_guard
+    std::mutex mutex;
+    {
+        std::lock_guard<std::mutex> lockGuard(mutex);
+        std::cout << "Thread " << std::this_thread::get_id()
+                   << " finished calculation\n";
+    }
+
 }
 
 // === 模块 C：主程序 ===
