@@ -74,9 +74,10 @@ add_executable(
 #        week_1/day_4_thread_issues.cpp
 #        week_1/day_5_parallel_calculator.cpp
 #        week_2/day_1_mutex_basics.cpp
-        week_2/day_1_Safe_Bank_Counter.cpp
-        week_2/day_1_Safe_Bank_Counter.h
-        week_2/test_safebankcounter.cpp
+#        week_2/day_1_Safe_Bank_Counter.cpp
+#        week_2/day_1_Safe_Bank_Counter.h
+#        week_2/test_safebankcounter.cpp
+        week_2/day_2_advanced_locks.cpp
 )
 
 ## 链接库
