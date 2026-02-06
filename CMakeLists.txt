@@ -1,8 +1,21 @@
-﻿cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.14)
 project(Concurrency_Study LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# ============================================
+# Google Test Configuration
+# ============================================
+include(FetchContent)
+FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG v1.14.0
+)
+FetchContent_MakeAvailable(googletest)
+
+enable_testing()
 
 # === 新增这一行：强制解决 C4819 中文乱码问题 ===
 add_compile_options(
@@ -77,7 +90,10 @@ add_executable(
 #        week_2/day_1_Safe_Bank_Counter.cpp
 #        week_2/day_1_Safe_Bank_Counter.h
 #        week_2/test_safebankcounter.cpp
-        week_2/day_2_advanced_locks.cpp
+#        week_2/day_2_advanced_locks.cpp
+#        week_2/day_3_condition_variable_demo.cpp
+
+        week_2/day3_task.cpp
 )
 
 ## 链接库
