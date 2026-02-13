@@ -143,6 +143,7 @@ int main() {
         });
     }
 
+    std::cout << "main is over" << std::endl;
     // main 不用刻意 sleep 很久了：
     // 当 main 结束，pool 析构会 join 等任务跑完再退出
     return 0;
