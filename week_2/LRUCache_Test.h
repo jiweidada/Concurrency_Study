@@ -16,20 +16,20 @@
  * @tparam Value 值类型
  */
 template<typename Key, typename Value>
-class LRUCache {
+class LRUCache_Test {
 public:
     /**
      * 构造函数
      * @param capacity 最大容量，必须大于 0
      */
-    explicit LRUCache(size_t capacity) : capacity_(capacity) {
+    explicit LRUCache_Test(size_t capacity) : capacity_(capacity) {
         if (capacity_ == 0) {
             throw std::invalid_argument("Capacity must be positive");
         }
     }
 
     /**
-     * 获取键对应的值
+     * 获取键对应的值 查数据 + 移到头部
      * @param key 待查询键
      * @return 键对应的值
      * @throw std::out_of_range 如果键不存在于缓存中
@@ -45,7 +45,7 @@ public:
     }
 
     /**
-     * 插入或更新键值对
+     * 插入或更新键值对 插/更新数据 + 淘汰
      * @param key   键
      * @param value 值
      */
@@ -70,21 +70,30 @@ public:
      * 检查键是否存在于缓存中
      */
     bool contains(const Key& key) const {
-        return node_map_.contains(key) != node_map_.end();
+        return node_map_.find(key) != node_map_.end();
     }
 
     /**
      * 当前缓存中的元素个数
      */
-    size_t size() const {
+    [[nodiscard]] size_t size() const {
         return lru_list_.size();
     }
 
     /**
      * 返回缓存容量
      */
-    size_t capacity() const {
+    [[nodiscard]] size_t capacity() const {
         return capacity_;
+    }
+
+    void print() const {
+        std::cout << "Cache [最近使用 -> 最久未使用]: ";
+        // 遍历双向链表（从头部到尾部）
+        for (const auto& node : lru_list_) {
+            std::cout << "[" << node.key << ": " << node.value << "] ";
+        }
+        std::cout << std::endl;
     }
 
 private:

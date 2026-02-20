@@ -93,7 +93,9 @@ add_executable(
 #        week_2/day_2_advanced_locks.cpp
 #        week_2/day_3_condition_variable_demo.cpp
 #        week_2/day3_task.cpp
-        week_2/LRUCache.cpp
+
+        week_2/LRUCache_Test.cpp
+        week_2/ThreadSafeLRUCache.h
 )
 
 ## 链接库
