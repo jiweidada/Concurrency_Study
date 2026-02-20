@@ -92,8 +92,8 @@ add_executable(
 #        week_2/test_safebankcounter.cpp
 #        week_2/day_2_advanced_locks.cpp
 #        week_2/day_3_condition_variable_demo.cpp
-
-        week_2/day3_task.cpp
+#        week_2/day3_task.cpp
+        week_2/LRUCache.cpp
 )
 
 ## 链接库
